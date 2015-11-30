@@ -14,10 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +36,11 @@ public class UserXAuthTokenController {
         this.authenticationManager = am;
         this.userDetailsService = userDetailsService;
         this.userService = userService;
+    }
+
+    @RequestMapping(value = "/registerLong", method = { RequestMethod.POST})
+    public ResponseEntity<Object> register(@RequestBody User user) {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/register", method = { RequestMethod.POST})

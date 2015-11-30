@@ -1,5 +1,7 @@
 package com.ansa.usermanagement.storage;
 
+import com.ansa.usermanagement.User;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +17,15 @@ public class UserInfo {
     private String password;
     private String token;
     private Date lastLogin;
+
+    public UserInfo(){
+
+    }
+
+    public UserInfo(User user){
+        this.username = user.getUsername();
+        this.password = user.getEncodedPassword();
+    }
 
     public UserInfo(String username, String password){
         this.username = username;
@@ -51,5 +62,12 @@ public class UserInfo {
 
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public User getUser() {
+        User user = new User();
+        user.setUsername(username);
+        user.setEncodedPassword(password);
+        return user;
     }
 }

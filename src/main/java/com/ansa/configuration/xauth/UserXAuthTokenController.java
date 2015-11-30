@@ -76,6 +76,16 @@ public class UserXAuthTokenController {
         }
     }
 
+    @RequestMapping(value = "/preCheck", method = { RequestMethod.POST })
+    public ResponseEntity<Object> preCheck(@RequestParam String token){
+        User user = userService.getUserByToken(token);
+        if (user != null){
+            return new ResponseEntity<Object>(HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     public static class UserInfo{
         private final String username;
         private final String token;

@@ -40,27 +40,26 @@ public class UserServiceImpl implements UserService {
         String encodedPassword = new BCryptPasswordEncoder().encode(password);
         user.setEncodedPassword(encodedPassword);
 
-        //UserInfo userInfo = new UserInfo(username, encodedPassword);
+        UserInfo userInfo = new UserInfo(username, encodedPassword);
+        userInfoRepository.save(userInfo);
 
-        //userInfoRepository.save(userInfo);
-
-        usernameToUserMap.put(user.getUsername(), user);
         return user;
     }
 
 
     @Override
     public User getUserByToken(String token) {
-        return activeUserMap.get(token);
+        return userInfoRepository.findByToken(token).getUser();
     }
 
     @Override
     public User getUserByUserName(String username){
-        return usernameToUserMap.get(username);
+        return userInfoRepository.findByUsername(username).getUser();
     }
 
     @Override
     public User findUser(String userName) {
-        return usernameToUserMap.get(userName);
+        UserInfo userInfo = userInfoRepository.findByUsername(userName);
+        return (userInfo!=null?userInfo.getUser():null);
     }
 }

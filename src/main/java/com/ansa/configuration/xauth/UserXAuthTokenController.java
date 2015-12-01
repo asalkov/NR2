@@ -1,5 +1,7 @@
 package com.ansa.configuration.xauth;
 
+import com.amazonaws.util.json.JSONException;
+import com.amazonaws.util.json.JSONObject;
 import com.ansa.usermanagement.User;
 import com.ansa.usermanagement.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,12 @@ public class UserXAuthTokenController {
     public ResponseEntity<Object> register(@RequestBody User user) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/authorizeLong", method = { RequestMethod.POST})
+    public ResponseEntity<Object> authorize(@RequestBody User user) throws JSONException {
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/register", method = { RequestMethod.POST})
     public ResponseEntity<Object> register(@RequestParam String username, @RequestParam String password) {

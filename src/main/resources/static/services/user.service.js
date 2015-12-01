@@ -12,6 +12,7 @@
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByUsername = GetByUsername;
+        service.Load = Load;
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
@@ -27,7 +28,13 @@
         }
 
         function GetByUsername(username) {
-            return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+            //return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.get('/auth/authorizeLong' + username).then(handleSuccess, handleError('Error getting user by username'));
+
+        }
+
+        function Load(user) {
+            return $http.post('/auth/authorizeLong', user).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function Create(user) {
